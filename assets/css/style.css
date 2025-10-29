@@ -1,0 +1,799 @@
+/* ========================================================= */
+/* Global and Base Styles */
+/* ========================================================= */
+
+/*
+ * Web Fonts (Typography):
+ * To use these, you would typically download the font files (e.g., from Google Fonts)
+ * and place them in your 'assets/fonts/' directory.
+ * For example, you would have files like 'assets/fonts/OpenSans-Regular.woff2', 'OpenSans-Bold.woff2', etc.
+ * This ensures consistent and professional typography across all devices. [2, 3]
+ */
+@font-face {
+    font-family: 'Open Sans';
+    src: url('assets/fonts/OpenSans-Regular.woff2') format('woff2'),
+         url('assets/fonts/OpenSans-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap; /* Ensures text is visible during font loading */
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('assets/fonts/OpenSans-Bold.woff2') format('woff2'),
+         url('assets/fonts/OpenSans-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*
+ * Define CSS Variables for a consistent and easily modifiable color palette.
+ * Inspired by professional medical sites like Aetna, using blues and purples for trust and health. [1]
+ */
+:root {
+    --primary-blue: #007bff; /* Original primary blue */
+    --primary-dark-blue: #0056b3; /* Darker shade for hover states and footer */
+    --secondary-gray: #6c757d; /* Original secondary gray */
+    --accent-purple: #6f42c1; /* New accent color for emphasis */
+    --text-dark: #333; /* Standard dark text color */
+    --text-light: #fff; /* Standard light text color */
+    --background-light: #f8f9fa; /* Light background for sections */
+    --border-light: #ddd; /* Light border color */
+    --shadow-light: rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+
+body {
+    /* Updated font-family to use the imported web font for better readability and professionalism. [2, 3] */
+    font-family: 'Open Sans', Arial, sans-serif;
+    line-height: 1.7; /* Slightly increased line-height for improved readability. [2] */
+    background-image: url('assets/images/hero-bg.jpeg'); /* Kept original, consider if this is needed if hero-section covers it. */
+    background-attachment: fixed; /* Adds a subtle parallax effect. */
+    background-size: cover;
+    background-position: center;
+    color: var(--text-dark); /* Using CSS variable for consistent dark text. */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 56px; /* Space for fixed navbar */
+    overflow-x: hidden; /* Prevents horizontal scroll issues. */
+}
+
+main {
+    flex: 1;
+}
+
+.container {
+    max-width: 1140px; /* Slightly wider container for a more modern layout. */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* General heading and paragraph styles for consistency and readability. [2] */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700; /* Bolder headings for visual hierarchy. */
+    line-height: 1.2;
+    color: var(--text-dark);
+}
+
+p {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    color: #555;
+}
+
+/* ========================================================= */
+/* Headers and Footers */
+/* ========================================================= */
+header, footer {
+    background-color: #e9ecef; /* Original, can be customized further with variables. */
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px var(--shadow-light); /* Added subtle shadow for depth. */
+}
+
+footer {
+    background-color: var(--primary-dark-blue); /* Changed to a darker blue for a more professional and trustworthy feel. [1] */
+    color: var(--text-light); /* Ensures text is visible against the dark background. */
+    text-align: center;
+    padding: 30px 0; /* Increased padding for a more substantial footer. */
+    flex-shrink: 0;
+}
+
+/* ========================================================= */
+/* Navbar Styling */
+/* ========================================================= */
+.navbar {
+    padding: 0.75rem 1rem; /* Slightly increased padding for a more spacious feel. */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* Stronger, more defined shadow for prominence. */
+    background-color: var(--text-light); /* Ensures the navbar has a solid background. */
+    position: fixed; /* Makes the navbar stick to the top of the viewport. */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensures the navbar stays on top of other content. */
+}
+
+.navbar-brand {
+    font-size: 1.75rem; /* Slightly larger font for the brand name. */
+    font-weight: 700; /* Bolder brand name. */
+    margin-right: 2.5rem; /* Increased margin for better separation. */
+    display: flex;
+    align-items: center;
+    color: var(--primary-blue); /* Uses the primary blue for brand emphasis. */
+}
+
+.navbar-brand img {
+    height: 45px; /* Slightly larger logo size. */
+    margin-right: 12px;
+}
+
+.navbar-nav.nav-item {
+    margin: 0 15px; /* Increased spacing between navigation items. */
+}
+
+.nav-link {
+    font-weight: 600; /* Bolder navigation links. */
+    color: var(--text-dark)!important; /* Ensures dark text for light navbar. */
+    transition: color 0.3s ease, transform 0.2s ease; /* Added transform transition for subtle hover effect. */
+    position: relative; /* Needed for the underline effect. */
+}
+
+.nav-link:hover,.nav-link:focus {
+    color: var(--primary-blue)!important; /* Changes color to primary blue on hover/focus. */
+    transform: translateY(-2px); /* Subtle lift effect on hover. */
+}
+
+/* Underline effect on hover for navigation links. */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--primary-blue);
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Dark navbar styles (if applicable, though a light navbar is often preferred for medical sites) */
+.navbar-dark {
+    background-color: var(--primary-dark-blue); /* Darker background for dark navbar. */
+}
+
+.navbar-dark.navbar-brand {
+    color: var(--text-light);
+}
+
+.navbar-dark.nav-link {
+    color: rgba(255, 255, 255, 0.9)!important; /* Slightly more opaque for better contrast. */
+}
+
+.navbar-dark.nav-link:hover,.navbar-dark.nav-link:focus {
+    color: var(--text-light)!important;
+}
+
+.navbar-dark.nav-link::after {
+    background-color: var(--text-light);
+}
+
+@media (max-width: 991.98px) {
+ .navbar-nav.nav-item {
+        margin: 0;
+    }
+ .navbar-collapse {
+        background-color: var(--text-light); /* Ensures background for collapsed menu. */
+        padding: 15px;
+        border-top: 1px solid var(--border-light);
+    }
+ .navbar-dark.navbar-collapse {
+        background-color: var(--primary-dark-blue);
+    }
+}
+
+/* ========================================================= */
+/* Buttons and Links */
+/* ========================================================= */
+.btn {
+    padding: 12px 25px; /* Slightly larger padding for easier clicking. */
+    border-radius: 8px; /* More rounded corners for a softer, modern look. */
+    text-decoration: none;
+    color: var(--text-light);
+    background-color: var(--primary-blue);
+    border: 1px solid var(--primary-blue);
+    cursor: pointer;
+    font-size: 17px; /* Slightly larger font size. */
+    font-weight: 600; /* Bolder text for prominence. */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Added transitions for smoother interactions. */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth. */
+}
+
+.btn:hover {
+    background-color: var(--primary-dark-blue); /* Darker blue on hover. */
+    border-color: var(--primary-dark-blue);
+    transform: translateY(-3px); /* Lift effect on hover. */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* Enhanced shadow on hover. */
+}
+
+.btn-primary {
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-gray);
+    border-color: var(--secondary-gray);
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+/* ========================================================= */
+/* Homepage Sections */
+/* ========================================================= */
+.hero-section {
+    background-image: url('assets/images/hero-bg.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Adds a parallax-like effect to the hero background. */
+    color: var(--text-light);
+    text-align: center;
+    padding: 180px 0; /* Increased padding for more prominence and visual impact. */
+    position: relative;
+    z-index: 1;
+    display: flex; /* Uses flexbox to vertically center content. */
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 56px); /* Makes the hero section take up most of the viewport height. */
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Changed overlay to a subtle blue with lower opacity to make the background image more visible. */
+    background-color: rgba(0, 123, 255, 0.1); /* Even more transparent for hero image visibility [1] */
+    z-index: -1;
+}
+
+.hero-section.container > * {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-section h1 {
+    font-size: 4.2rem; /* Larger, more impactful heading for the hero section. */
+    margin-bottom: 25px;
+    font-weight: 700; /* Bolder text. */
+    color: var(--text-light);
+    text-shadow: 2px 2px 4px rgba(197, 252, 252, 0.4); /* Subtle text shadow for readability against the background. */
+}
+
+.hero-section p {
+    font-size: 1.35rem; /* Larger paragraph text for the hero section. */
+    margin-bottom: 40px;
+    line-height: 1.6;
+    color: var(--text-light);
+    text-shadow: 1px 1px 3px rgba(197, 252, 252, 0.2); /* Subtle text shadow. */
+}
+
+/* Hero buttons for homepage */
+.hero-btn {
+    padding: 15px 35px; /* Larger buttons for primary calls to action. */
+    border-radius: 8px; /* More rounded corners. */
+    font-size: 1.2rem; /* Larger font size. */
+    font-weight: 700; /* Bolder text. */
+    letter-spacing: 0.5px; /* Slight letter spacing for emphasis. */
+    text-transform: uppercase; /* Uppercase for impact. */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* More prominent shadow. */
+}
+
+.btn-primary-hero {
+    background-color: var(--primary-blue);
+    color: var(--text-light);
+    border-color: var(--primary-blue);
+}
+
+.btn-secondary-hero {
+    background-color: transparent;
+    color: var(--text-light);
+    border-color: var(--text-light);
+}
+
+.btn-primary-hero:hover {
+    background-color: var(--primary-dark-blue);
+    border-color: var(--primary-dark-blue);
+    color: var(--text-light);
+    text-decoration: none;
+    transform: translateY(-5px); /* More pronounced lift on hover. */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.btn-secondary-hero:hover {
+    background-color: var(--text-light);
+    color: var(--primary-blue); /* Text color changes to primary blue on hover. */
+    text-decoration: none;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Features Section - Matching Team Grid Style */
+.features-section {
+    padding: 100px 0;
+    background-color: var(--background-light);
+}
+
+.features-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    color: var(--primary-blue);
+    font-weight: 700;
+    position: relative;
+}
+
+.features-section h2::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 4px;
+    background-color: var(--accent-purple);
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.feature-card {
+    background-color: var(--text-light);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.2) rotate(5deg);
+    color: var(--accent-purple);
+}
+
+.feature-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary-dark-blue);
+    margin-bottom: 15px;
+}
+
+.feature-description {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.feature-btn {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: var(--primary-blue);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.feature-btn:hover {
+    background-color: var(--primary-light-blue);
+    color: var(--primary-blue);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================================= */
+/* About Us Page Specific Styles */
+/* ========================================================= */
+.about-section {
+    padding: 80px 0; /* Consistent padding for sections */
+    text-align: center;
+    background-color: var(--text-light); /* Default background */
+}
+
+.about-section h2 {
+    font-size: 2.8rem; /* Slightly larger heading for main sections */
+    margin-bottom: 50px;
+    color: var(--primary-blue); /* Consistent heading color */
+    font-weight: 700;
+    position: relative;
+    display: inline-block; /* For underline effect */
+}
+
+.about-section h2::after {
+    content: '';
+    position: absolute;
+    width: 80px; /* Short underline */
+    height: 4px;
+    background-color: var(--accent-purple); /* Accent color for underline */
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.about-section p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    color: #444;
+}
+
+/* Our Values List */
+.values-list {
+    list-style: none;
+    padding: 0;
+    max-width: 960px; /* Wider for better value display */
+    margin: 0 auto 60px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid for values */
+    gap: 25px;
+    text-align: left;
+}
+
+.values-list li {
+    background-color: var(--text-light);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    border-left: 5px solid var(--primary-blue); /* Accent border */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.values-list li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.icon-check {
+    color: var(--accent-purple); /* Color for checkmark icon */
+    font-size: 1.4rem;
+    margin-right: 15px;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+    margin-top: 3px; /* Align with text */
+}
+
+/* Meet Our Team Grid */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid for team members */
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.team-card {
+    background-color: var(--text-light);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+.team-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 5px solid var(--primary-blue); /* Border around image */
+    box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.2); /* Outer glow */
+    transition: transform 0.3s ease;
+}
+
+.team-card:hover.team-img {
+    transform: scale(1.05); /* Slight zoom on image hover */
+}
+
+.team-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary-dark-blue);
+    margin-bottom: 8px;
+}
+
+.team-title {
+    font-size: 1.1rem;
+    color: var(--accent-purple);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.team-description {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+
+/* ========================================================= */
+/* Forms and Authentication Pages */
+/* ========================================================= */
+.auth-container {
+    display: flex;
+    min-height: calc(100vh - 56px); /* Adjusts height for fixed navbar. */
+    padding-top: 0; /* Removes original padding-top as navbar is now fixed. */
+}
+
+.auth-image-section {
+    flex: 1;
+    background-image: url('assets/images/background-login.jpg'); /* Original image for login page. */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.auth-image-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(var(--primary-blue), 0.3); /* Subtle blue overlay for branding. */
+}
+
+.auth-form-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px; /* Increased padding. */
+    background-color: var(--background-light);
+}
+
+.auth-form {
+    background-color: var(--text-light);
+    padding: 40px; /* Increased padding for a more substantial form. */
+    border-radius: 10px; /* More rounded corners. */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow for a professional look. */
+    max-width: 500px; /* Slightly wider form. */
+    width: 100%;
+}
+
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 35px; /* Increased margin. */
+    color: var(--primary-blue);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.form-group {
+    margin-bottom: 25px; /* Increased margin. */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px; /* Increased margin. */
+    font-weight: 600; /* Bolder label. */
+    color: var(--text-dark);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px; /* Increased padding. */
+    border: 1px solid var(--border-light);
+    border-radius: 6px; /* Slightly more rounded. */
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Adds a subtle focus ring. */
+    outline: none;
+}
+
+.form-group.error-message {
+    color: #dc3545;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: block;
+}
+
+.form-link {
+    text-align: center;
+    margin-top: 25px; /* Increased margin. */
+}
+
+.form-link a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.form-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+ .auth-container {
+        flex-direction: column;
+    }
+
+ .auth-image-section {
+        display: none; /* Hide the image on small screens to save space. */
+    }
+
+ .auth-form-section {
+        flex: none; /* Reset flex-grow to prevent unwanted stretching. */
+        padding: 20px;
+    }
+ .auth-form {
+        padding: 30px;
+    }
+}
+/* ========================================================= */
+/* Other Sections */
+/* ========================================================= */
+.dashboard-section {
+    padding: 60px 0; /* Increased padding. */
+    text-align: center;
+    background-color: var(--text-light);
+}
+
+.dashboard-section h2 {
+    margin-bottom: 30px; /* Increased margin. */
+    font-size: 2.2rem;
+    color: var(--primary-blue);
+    font-weight: 700;
+}
+
+.dashboard-section ul {
+    list-style: none;
+    padding: 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.dashboard-section ul li {
+    background-color: var(--background-light); /* Using variable. */
+    margin-bottom: 15px; /* Increased margin. */
+    padding: 15px; /* Increased padding. */
+    border-radius: 8px; /* More rounded. */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08); /* Subtle shadow. */
+    text-align: left;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.alert {
+    padding: 18px; /* Increased padding. */
+    margin-bottom: 25px; /* Increased margin. */
+    border: 1px solid transparent;
+    border-radius: 6px; /* More rounded. */
+    font-size: 1.05rem;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+/* Responsive adjustments for smaller screens. [2] */
+@media (max-width: 992px) {
+  .features-section.features-grid.features-card-item {
+        flex: 1 1 calc(50% - 15px); /* Two columns on medium screens */
+        max-width: calc(50% - 15px);
+    }
+}
+
+@media (max-width: 768px) {
+ .hero-section {
+        padding: 100px 0;
+        min-height: 60vh;
+    }
+ .hero-section h1 {
+        font-size: 2.8rem;
+    }
+ .hero-section p {
+        font-size: 1.1rem;
+    }
+ .features-section,.about-section,.dashboard-section {
+        padding: 60px 0;
+    }
+ .features-section h2,.about-section h2,.dashboard-section h2 {
+        font-size: 2rem;
+        margin-bottom: 40px;
+    }
+ .btn {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+ .hero-btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+  .features-section.features-grid.features-card-item {
+        flex: 1 1 100%; /* Single column on small screens */
+        max-width: 100%;
+    }
+   .values-list {
+        grid-template-columns: 1fr; /* Single column on small screens */
+    }
+   .team-grid {
+        grid-template-columns: 1fr; /* Single column on small screens */
+    }
+   .team-card {
+        padding: 25px;
+    }
+   .team-img {
+        width: 120px;
+        height: 120px;
+    }
+   .team-name {
+        font-size: 1.4rem;
+    }
+   .team-title {
+        font-size: 1rem;
+    }
+}
